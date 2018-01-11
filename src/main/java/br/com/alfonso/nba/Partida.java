@@ -4,6 +4,7 @@ import br.com.alfonso.IPartida;
 
 public class Partida extends IPartida<Time>  {
 	
+	private Temporada temporada = new Temporada();
 	private Time casa = null;
 	private int pontosCasa = 0;
 	private Time visitante = null;
@@ -11,8 +12,9 @@ public class Partida extends IPartida<Time>  {
 	private boolean fim = true;
 	private char vitorioso = 'X';
 	
-	public Partida() {
+	public Partida(Temporada temporada) {
 		
+		this.temporada = temporada;
 		setCasa(null);
 		this.pontosCasa = 0;
 		setVisitante(null);
@@ -66,10 +68,22 @@ public class Partida extends IPartida<Time>  {
 		if (casa != null) {
 			if (this.visitante != null) {
 				if (!casa.toString().equals(this.visitante.toString())) {
-					this.casa = casa;
+					boolean idExists = this.temporada
+							.getTimes()
+							.stream()
+							.anyMatch(p -> p.getSigla().equals(casa.getSigla()));
+					if (idExists) {
+						this.casa = casa;
+					}
 				}
 			} else {
-				this.casa = casa;
+				boolean idExists = this.temporada
+						.getTimes()
+						.stream()
+						.anyMatch(p -> p.getSigla().equals(casa.getSigla()));
+				if (idExists) {
+					this.casa = casa;
+				}
 			}
 		} else {
 			this.casa = null;
@@ -85,10 +99,22 @@ public class Partida extends IPartida<Time>  {
 		if (visitante != null) {
 			if (this.casa != null) {
 				if (!visitante.toString().equals(this.casa.toString())) {
-					this.visitante = visitante;
+					boolean idExists = this.temporada
+							.getTimes()
+							.stream()
+							.anyMatch(p -> p.getSigla().equals(visitante.getSigla()));
+					if (idExists) {
+						this.visitante = visitante;
+					}
 				}
 			} else {
-				this.visitante = visitante;
+				boolean idExists = this.temporada
+						.getTimes()
+						.stream()
+						.anyMatch(p -> p.getSigla().equals(visitante.getSigla()));
+				if (idExists) {
+					this.visitante = visitante;
+				}
 			}
 		} else {
 			this.visitante = null;

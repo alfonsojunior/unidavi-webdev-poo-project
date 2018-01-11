@@ -5,11 +5,12 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 public class Temporada {
 
 	private String id = "";
-	private ArrayList<Time> times = new ArrayList<Time>();
+	private List<Time> times = new ArrayList<Time>();
 	private ArrayList<Agenda> agendas = new ArrayList<Agenda>();	
 	
 	public Temporada() {
@@ -66,7 +67,7 @@ public class Temporada {
 		this.removerTimes(time);
 	}
 	
-	public ArrayList<Time> getTimes() {
+	public List<Time> getTimes() {
 		return this.times;
 	}
 	

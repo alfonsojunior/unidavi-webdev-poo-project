@@ -16,6 +16,9 @@ public class AgendaTest {
 
 	@Test
 	public void testAgenda() {
+		Temporada temporada = new Temporada();
+		temporada.setID("2017-2018");
+		
 		Agenda agenda = new Agenda();
 		LocalDate data = LocalDate.of(2017, Month.DECEMBER, 15);
 		agenda.setData(data);
@@ -25,20 +28,25 @@ public class AgendaTest {
 
 	@Test
 	public void testAdicionarHorario() {
+		Temporada temporada = new Temporada();
+		temporada.setID("2017-2018");
+		
 		Agenda agenda = new Agenda();
 		LocalDate data = LocalDate.of(2017, Month.DECEMBER, 15);
 		agenda.setData(data);
 		
 		Horario horario = new Horario();
 		horario.setHora(LocalTime.of(21, 00));
-		Partida partida = new Partida();
+		Partida partida = new Partida(temporada);
 		Time time = new Time();
 		time.setSigla("TS1");
 		time.setNome("Teste1");
+		temporada.adicionarTimes(time);
 		partida.setCasa(time);
 		time = new Time();
 		time.setSigla("TS2");
 		time.setNome("Teste2");
+		temporada.adicionarTimes(time);
 		partida.setVisitante(time);
 		horario.adicionarPartida(partida);
 		
@@ -48,14 +56,16 @@ public class AgendaTest {
 		
 		horario = new Horario();
 		horario.setHora(LocalTime.of(21, 00));
-		partida = new Partida();
+		partida = new Partida(temporada);
 		time = new Time();
 		time.setSigla("TS3");
 		time.setNome("Teste3");
+		temporada.adicionarTimes(time);
 		partida.setCasa(time);
 		time = new Time();
 		time.setSigla("TS4");
 		time.setNome("Teste4");
+		temporada.adicionarTimes(time);
 		partida.setVisitante(time);
 		horario.adicionarPartida(partida);
 		
@@ -68,20 +78,25 @@ public class AgendaTest {
 
 	@Test
 	public void testRemoverHorario() {
+		Temporada temporada = new Temporada();
+		temporada.setID("2017-2018");
+		
 		Agenda agenda = new Agenda();
 		LocalDate data = LocalDate.of(2017, Month.DECEMBER, 15);
 		agenda.setData(data);
 		
 		Horario horario = new Horario();
 		horario.setHora(LocalTime.of(21, 00));
-		Partida partida = new Partida();
+		Partida partida = new Partida(temporada);
 		Time time = new Time();
 		time.setSigla("TS1");
 		time.setNome("Teste1");
+		temporada.adicionarTimes(time);
 		partida.setCasa(time);
 		time = new Time();
 		time.setSigla("TS2");
 		time.setNome("Teste2");
+		temporada.adicionarTimes(time);
 		partida.setVisitante(time);
 		horario.adicionarPartida(partida);
 		
@@ -91,14 +106,16 @@ public class AgendaTest {
 		
 		horario = new Horario();
 		horario.setHora(LocalTime.of(21, 00));
-		partida = new Partida();
+		partida = new Partida(temporada);
 		time = new Time();
 		time.setSigla("TS3");
 		time.setNome("Teste3");
+		temporada.adicionarTimes(time);
 		partida.setCasa(time);
 		time = new Time();
 		time.setSigla("TS4");
 		time.setNome("Teste4");
+		temporada.adicionarTimes(time);
 		partida.setVisitante(time);
 		horario.adicionarPartida(partida);
 		agenda.adicionarHorario(horario);
@@ -109,14 +126,16 @@ public class AgendaTest {
 		
 		horario = new Horario();
 		horario.setHora(LocalTime.of(21, 00));
-		partida = new Partida();
+		partida = new Partida(temporada);
 		time = new Time();
 		time.setSigla("TS1");
 		time.setNome("Teste1");
+		temporada.adicionarTimes(time);
 		partida.setCasa(time);
 		time = new Time();
 		time.setSigla("TS2");
 		time.setNome("Teste2");
+		temporada.adicionarTimes(time);
 		partida.setVisitante(time);
 		horario.adicionarPartida(partida);
 		agenda.removerHorario(horario);

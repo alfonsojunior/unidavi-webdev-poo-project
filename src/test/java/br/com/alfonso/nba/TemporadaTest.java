@@ -31,31 +31,38 @@ public class TemporadaTest {
 	public void testRemoverTimes() {
 		Temporada temporada = new Temporada();
 		temporada.setID("2017-2018");
+		
 		Time time = new Time();
 		time.setSigla("TS1");
 		time.setNome("Teste1");
 		temporada.adicionarTimes(time);
+		
 		time = new Time();
 		time.setSigla("TS2");
 		time.setNome("Teste2");
 		temporada.adicionarTimes(time);
+		
 		time = new Time();
 		time.setSigla("TS3");
 		time.setNome("Teste3");
 		temporada.adicionarTimes(time);
+		
 		temporada.adicionarTimes("TS4", "Teste4");
+		
 		Assert.assertEquals("[TS1 - Teste1, TS2 - Teste2, TS3 - Teste3, TS4 - Teste4]", temporada.getTimes().toString());
 		
 		time = new Time();
 		time.setSigla("TS4");
 		time.setNome("Teste4");
 		temporada.adicionarTimes(time);
+		
 		Assert.assertEquals("[TS1 - Teste1, TS2 - Teste2, TS3 - Teste3, TS4 - Teste4]", temporada.getTimes().toString());
 		
 		time = new Time();
 		time.setSigla("TS2");
 		time.setNome("Teste2");
 		temporada.removerTimes(time);
+		
 		Assert.assertEquals("[TS1 - Teste1, TS3 - Teste3, TS4 - Teste4]", temporada.getTimes().toString());
 		
 		temporada.removerTimes("TS1");
@@ -75,15 +82,19 @@ public class TemporadaTest {
 		Horario horario = new Horario();
 		horario.setHora(hora);
 		
-		Partida partida = new Partida();		
+		Partida partida = new Partida(temporada);		
 		Time time = new Time();
 		time.setSigla("TS1");
 		time.setNome("Teste1");
+		temporada.adicionarTimes(time);
 		partida.setCasa(time);
+		
 		time = new Time();
 		time.setSigla("TS2");
 		time.setNome("Teste2");
+		temporada.adicionarTimes(time);
 		partida.setVisitante(time);
+		
 		horario.adicionarPartida(partida);
 		agenda.adicionarHorario(horario);
 		temporada.adicionarAgenda(agenda);
@@ -96,15 +107,19 @@ public class TemporadaTest {
 		horario = new Horario();
 		horario.setHora(hora);
 		
-		partida = new Partida();
+		partida = new Partida(temporada);
 		time = new Time();
 		time.setSigla("TS3");
 		time.setNome("Teste3");
+		temporada.adicionarTimes(time);
 		partida.setCasa(time);
+		
 		time = new Time();
 		time.setSigla("TS4");
 		time.setNome("Teste4");
+		temporada.adicionarTimes(time);
 		partida.setVisitante(time);
+		
 		horario.adicionarPartida(partida);
 		agenda.adicionarHorario(horario);
 		temporada.adicionarAgenda(agenda);
@@ -128,15 +143,19 @@ public class TemporadaTest {
 		horario = new Horario();
 		horario.setHora(hora);
 		
-		partida = new Partida();		
+		partida = new Partida(temporada);		
 		time = new Time();
 		time.setSigla("TS1");
 		time.setNome("Teste1");
+		temporada.adicionarTimes(time);
 		partida.setCasa(time);
+		
 		time = new Time();
 		time.setSigla("TS2");
 		time.setNome("Teste2");
+		temporada.adicionarTimes(time);
 		partida.setVisitante(time);
+		
 		horario.adicionarPartida(partida);
 		agenda.adicionarHorario(horario);
 		
@@ -164,15 +183,19 @@ public class TemporadaTest {
 		Horario horario = new Horario();
 		horario.setHora(hora);
 		
-		Partida partida = new Partida();		
+		Partida partida = new Partida(temporada);		
 		Time time = new Time();
 		time.setSigla("TS1");
 		time.setNome("Teste1");
+		temporada.adicionarTimes(time);
 		partida.setCasa(time);
+		
 		time = new Time();
 		time.setSigla("TS2");
 		time.setNome("Teste2");
+		temporada.adicionarTimes(time);
 		partida.setVisitante(time);
+		
 		horario.adicionarPartida(partida);
 		agenda.adicionarHorario(horario);
 		temporada.adicionarAgenda(agenda);
@@ -185,15 +208,19 @@ public class TemporadaTest {
 		horario = new Horario();
 		horario.setHora(hora);
 		
-		partida = new Partida();
+		partida = new Partida(temporada);
 		time = new Time();
 		time.setSigla("TS3");
 		time.setNome("Teste3");
+		temporada.adicionarTimes(time);
 		partida.setCasa(time);
+		
 		time = new Time();
 		time.setSigla("TS4");
 		time.setNome("Teste4");
+		temporada.adicionarTimes(time);
 		partida.setVisitante(time);
+		
 		horario.adicionarPartida(partida);
 		agenda.adicionarHorario(horario);
 		temporada.adicionarAgenda(agenda);
@@ -201,7 +228,7 @@ public class TemporadaTest {
 		String teste = "[2017-2018]\r\n[2017-10-10]\r\n[21:00]\r\n\t[Teste1 X Teste2]\r\n\r\n[2017-10-11]\r\n[21:00]\r\n\t[Teste3 X Teste4]\r\n\r\n";
 		Assert.assertEquals(teste, temporada.toString());
 		
-		partida = new Partida();		
+		partida = new Partida(temporada);		
 		time = new Time();
 		time.setSigla("TS1");
 		time.setNome("Teste1");
@@ -218,7 +245,7 @@ public class TemporadaTest {
 		teste = "[2017-2018]\r\n[2017-10-11]\r\n[21:00]\r\n\t[Teste3 X Teste4]\r\n\r\n[2017-11-11]\r\n[22:00]\r\n\t[Teste1 X Teste2]\r\n\r\n";
 		Assert.assertEquals(teste, temporada.toString());
 		
-		partida = new Partida();
+		partida = new Partida(temporada);
 		time = new Time();
 		time.setSigla("TS3");
 		time.setNome("Teste3");

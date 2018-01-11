@@ -11,7 +11,6 @@ public class Agenda {
 	private ArrayList<Horario> horarios = new ArrayList<Horario>();
 	
 	public Agenda() {
-		
 	}
 
 	public LocalDate getData() {

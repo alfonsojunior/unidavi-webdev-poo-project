@@ -11,63 +11,102 @@ public class PartidaTest {
 
 	@Test
 	public void testPartida() {
-		Partida partida = new Partida();
+		Temporada temporada = new Temporada();
+		temporada.setID("2017-2018");
+		
+		Partida partida = new Partida(temporada);
 		Assert.assertEquals("Partida inválida", partida.toString());
 		
-		Time time = new Time();
-		time.setSigla("TS1");
-		time.setNome("Teste1");
-		partida.setCasa(time);
+		Time casa = new Time();
+		casa.setSigla("TS1");
+		casa.setNome("Teste1");
+		partida.setCasa(casa);
 		Assert.assertEquals("Partida inválida", partida.toString());
 		
 		partida.setCasa(null);
 		partida.iniciarPartida();
 		Assert.assertEquals("Partida inválida", partida.toString());
 		
-		time = new Time();
-		time.setSigla("TS2");
-		time.setNome("Teste2");
-		partida.setVisitante(time);
+		Time visitante = new Time();
+		visitante.setSigla("TS2");
+		visitante.setNome("Teste2");
+		partida.setVisitante(visitante);
 		Assert.assertEquals("Partida inválida", partida.toString());
 		
-		time = new Time();
-		time.setSigla("TS1");
-		time.setNome("Teste1");
-		partida.setCasa(time);
+		partida.setCasa(casa);
+		Assert.assertEquals("Partida inválida", partida.toString());
+		
+		temporada.adicionarTimes(casa);
+		temporada.adicionarTimes(visitante);
+		partida.setCasa(casa);
+		partida.setVisitante(visitante);
+		
 		Assert.assertEquals("Teste1 X Teste2\r\n0 X 0\r\nPartida não iniciada", partida.toString());
 	}
 
 	@Test
 	public void testIniciarPartida() {
-		Partida partida = new Partida();
+		Temporada temporada = new Temporada();
+		temporada.setID("2017-2018");
+		
+		Partida partida = new Partida(temporada);
 		partida.iniciarPartida();
 		Assert.assertEquals('X', partida.getVitorioso());
 		Assert.assertEquals("Partida inválida", partida.toString());
 		
-		Time time = new Time();
-		time.setSigla("TS1");
-		time.setNome("Teste1");
-		partida.setCasa(time);
-		time = new Time();
-		time.setSigla("TS2");
-		time.setNome("Teste2");
-		partida.setVisitante(time);
+		Time casa = new Time();
+		casa.setSigla("TS1");
+		casa.setNome("Teste1");
+		partida.setCasa(casa);
+		
+		Time visitante = new Time();
+		visitante.setSigla("TS2");
+		visitante.setNome("Teste2");
+		partida.setVisitante(visitante);
+		
+		Assert.assertEquals('X', partida.getVitorioso());
+		Assert.assertEquals("Partida inválida", partida.toString());
+		
 		partida.iniciarPartida();
+		
+		Assert.assertEquals('X', partida.getVitorioso());
+		Assert.assertEquals("Partida inválida", partida.toString());		
+		
+		temporada.adicionarTimes(casa);
+		temporada.adicionarTimes(visitante);
+		partida.setCasa(casa);
+		partida.setVisitante(visitante);
+		
+		partida.iniciarPartida();
+		
 		Assert.assertEquals('I', partida.getVitorioso());
 		Assert.assertEquals("Teste1 X Teste2\r\n0 X 0\r\nPartida em andamento", partida.toString());
 	}
 
 	@Test
 	public void testAdicionarPontos() {
-		Partida partida = new Partida();
-		Time time = new Time();
-		time.setSigla("TS1");
-		time.setNome("Teste1");
-		partida.setCasa(time);
-		time = new Time();
-		time.setSigla("TS2");
-		time.setNome("Teste2");
-		partida.setVisitante(time);
+		Temporada temporada = new Temporada();
+		temporada.setID("2017-2018");
+		
+		Partida partida = new Partida(temporada);
+		
+		Time casa = new Time();
+		casa.setSigla("TS1");
+		casa.setNome("Teste1");
+		partida.setCasa(casa);
+		
+		Time visitante = new Time();
+		visitante.setSigla("TS2");
+		visitante.setNome("Teste2");
+		partida.setVisitante(visitante);
+		
+		Assert.assertEquals("Partida inválida", partida.toString());
+		
+		temporada.adicionarTimes(casa);
+		temporada.adicionarTimes(visitante);
+		partida.setCasa(casa);
+		partida.setVisitante(visitante);
+		
 		Assert.assertEquals("Teste1 X Teste2\r\n0 X 0\r\nPartida não iniciada", partida.toString());
 		
 		partida.adicionarPontosCasa(1);
@@ -83,36 +122,60 @@ public class PartidaTest {
 
 	@Test
 	public void testGetCasa() {
-		Partida partida = new Partida();
+		Temporada temporada = new Temporada();
+		temporada.setID("2017-2018");
+		
+		Partida partida = new Partida(temporada);
 		Time time = new Time();
 		time.setSigla("TS1");
 		time.setNome("Teste1");
+		partida.setCasa(time);
+		
+		Assert.assertEquals(null, partida.getVisitante());
+		
+		temporada.adicionarTimes(time);
 		partida.setCasa(time);
 		Assert.assertEquals("TS1 - Teste1", partida.getCasa().toString());
 	}
 
 	@Test
 	public void testGetVisitante() {
-		Partida partida = new Partida();
+		Temporada temporada = new Temporada();
+		temporada.setID("2017-2018");
+		
+		Partida partida = new Partida(temporada);
 		Assert.assertEquals(null, partida.getVisitante());
 		Time time = new Time();
 		time.setSigla("TS2");
 		time.setNome("Teste2");
+		partida.setVisitante(time);
+		
+		Assert.assertEquals(null, partida.getVisitante());
+		
+		temporada.adicionarTimes(time);
 		partida.setVisitante(time);
 		Assert.assertEquals("TS2 - Teste2", partida.getVisitante().toString());
 	}
 
 	@Test
 	public void testFinalizarPartida() {
-		Partida partida = new Partida();
-		Time time = new Time();
-		time.setSigla("TS1");
-		time.setNome("Teste1");
-		partida.setCasa(time);
-		time = new Time();
-		time.setSigla("TS2");
-		time.setNome("Teste2");
-		partida.setVisitante(time);
+		Temporada temporada = new Temporada();
+		temporada.setID("2017-2018");
+		
+		Partida partida = new Partida(temporada);
+		
+		Time casa = new Time();
+		casa.setSigla("TS1");
+		casa.setNome("Teste1");
+		temporada.adicionarTimes(casa);
+		partida.setCasa(casa);
+		
+		Time visitante = new Time();
+		visitante.setSigla("TS2");
+		visitante.setNome("Teste2");
+		temporada.adicionarTimes(visitante);
+		partida.setVisitante(visitante);
+		
 		Assert.assertEquals("Teste1 X Teste2", partida.getID());
 		Assert.assertEquals("Teste1 X Teste2\r\n0 X 0\r\nPartida não iniciada", partida.toString());
 		
@@ -134,22 +197,30 @@ public class PartidaTest {
 		Assert.assertEquals("Teste1 X Teste2\r\n1 X 4\r\nPartida finalizada", partida.toString());
 		Assert.assertEquals('V', partida.getVitorioso());
 		
-		partida = new Partida();
-		time = new Time();
-		time.setSigla("TS3");
-		time.setNome("Teste3");
-		partida.setCasa(time);
-		time = new Time();
-		time.setSigla("TS4");
-		time.setNome("Teste4");
-		partida.setVisitante(time);
+		partida = new Partida(temporada);
+		
+		casa = new Time();
+		casa.setSigla("TS3");
+		casa.setNome("Teste3");
+		temporada.adicionarTimes(casa);
+		partida.setCasa(casa);
+		
+		visitante = new Time();
+		visitante.setSigla("TS4");
+		visitante.setNome("Teste4");
+		temporada.adicionarTimes(visitante);
+		partida.setVisitante(visitante);
+		
 		partida.iniciarPartida();
+		
 		partida.adicionarPontosCasa(3);
 		partida.adicionarPontosVisitante(2);
 		partida.adicionarPontosCasa(2);
 		partida.adicionarPontosCasa(2);
 		partida.adicionarPontosVisitante(3);
+		
 		partida.finalizarPartida();
+		
 		Assert.assertEquals("Teste3 X Teste4\r\n7 X 5\r\nPartida finalizada", partida.toString());
 		Assert.assertEquals('C', partida.getVitorioso());
 	}
