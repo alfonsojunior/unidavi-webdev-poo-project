@@ -162,12 +162,12 @@ public class Partida extends IPartida<Time>  {
 	@Override
 	public String toString() {
 		if (this.casa == null || this.visitante == null) {
-			return "Partida inválida";
+			return "Partida invalida";
 		} else {
 			return this.casa.getNome() + " X " + this.visitante.getNome() + "\r\n" 
 					+ this.getPontosCasa() + " X " + this.getPontosVisitante() + "\r\n"
 					+ (this.fim && this.vitorioso != 'X' ? "Partida finalizada" : 
-						this.fim && this.vitorioso == 'X'? "Partida não iniciada" : "Partida em andamento");
+						this.fim && this.vitorioso == 'X'? "Partida nao iniciada" : "Partida em andamento");
 		}
 	}
 	

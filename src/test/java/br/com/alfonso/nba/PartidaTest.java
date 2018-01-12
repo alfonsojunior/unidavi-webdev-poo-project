@@ -15,33 +15,33 @@ public class PartidaTest {
 		temporada.setID("2017-2018");
 		
 		Partida partida = new Partida(temporada);
-		Assert.assertEquals("Partida inválida", partida.toString());
+		Assert.assertEquals("Partida invalida", partida.toString());
 		
 		Time casa = new Time();
 		casa.setSigla("TS1");
 		casa.setNome("Teste1");
 		partida.setCasa(casa);
-		Assert.assertEquals("Partida inválida", partida.toString());
+		Assert.assertEquals("Partida invalida", partida.toString());
 		
 		partida.setCasa("");
 		partida.iniciarPartida();
-		Assert.assertEquals("Partida inválida", partida.toString());
+		Assert.assertEquals("Partida invalida", partida.toString());
 		
 		Time visitante = new Time();
 		visitante.setSigla("TS2");
 		visitante.setNome("Teste2");
 		partida.setVisitante(visitante);
-		Assert.assertEquals("Partida inválida", partida.toString());
+		Assert.assertEquals("Partida invalida", partida.toString());
 		
 		partida.setCasa(casa);
-		Assert.assertEquals("Partida inválida", partida.toString());
+		Assert.assertEquals("Partida invalida", partida.toString());
 		
 		temporada.adicionarTimes(casa);
 		temporada.adicionarTimes(visitante);
 		partida.setCasa(casa);
 		partida.setVisitante(visitante);
 		
-		Assert.assertEquals("Teste1 X Teste2\r\n0 X 0\r\nPartida não iniciada", partida.toString());
+		Assert.assertEquals("Teste1 X Teste2\r\n0 X 0\r\nPartida nao iniciada", partida.toString());
 	}
 
 	@Test
@@ -52,7 +52,7 @@ public class PartidaTest {
 		Partida partida = new Partida(temporada);
 		partida.iniciarPartida();
 		Assert.assertEquals('X', partida.getVitorioso());
-		Assert.assertEquals("Partida inválida", partida.toString());
+		Assert.assertEquals("Partida invalida", partida.toString());
 		
 		Time casa = new Time();
 		casa.setSigla("TS1");
@@ -65,12 +65,12 @@ public class PartidaTest {
 		partida.setVisitante(visitante);
 		
 		Assert.assertEquals('X', partida.getVitorioso());
-		Assert.assertEquals("Partida inválida", partida.toString());
+		Assert.assertEquals("Partida invalida", partida.toString());
 		
 		partida.iniciarPartida();
 		
 		Assert.assertEquals('X', partida.getVitorioso());
-		Assert.assertEquals("Partida inválida", partida.toString());		
+		Assert.assertEquals("Partida invalida", partida.toString());		
 		
 		temporada.adicionarTimes(casa);
 		temporada.adicionarTimes(visitante);
@@ -100,17 +100,17 @@ public class PartidaTest {
 		visitante.setNome("Teste2");
 		partida.setVisitante(visitante);
 		
-		Assert.assertEquals("Partida inválida", partida.toString());
+		Assert.assertEquals("Partida invalida", partida.toString());
 		
 		temporada.adicionarTimes(casa);
 		temporada.adicionarTimes(visitante);
 		partida.setCasa(casa);
 		partida.setVisitante(visitante);
 		
-		Assert.assertEquals("Teste1 X Teste2\r\n0 X 0\r\nPartida não iniciada", partida.toString());
+		Assert.assertEquals("Teste1 X Teste2\r\n0 X 0\r\nPartida nao iniciada", partida.toString());
 		
 		partida.adicionarPontosCasa(1);
-		Assert.assertEquals("Teste1 X Teste2\r\n0 X 0\r\nPartida não iniciada", partida.toString());
+		Assert.assertEquals("Teste1 X Teste2\r\n0 X 0\r\nPartida nao iniciada", partida.toString());
 		
 		partida.iniciarPartida();
 		partida.adicionarPontosCasa(1);
@@ -202,10 +202,10 @@ public class PartidaTest {
 		partida.setVisitante(visitante);
 		
 		Assert.assertEquals("Teste1 X Teste2", partida.getID());
-		Assert.assertEquals("Teste1 X Teste2\r\n0 X 0\r\nPartida não iniciada", partida.toString());
+		Assert.assertEquals("Teste1 X Teste2\r\n0 X 0\r\nPartida nao iniciada", partida.toString());
 		
 		partida.finalizarPartida();
-		Assert.assertEquals("Teste1 X Teste2\r\n0 X 0\r\nPartida não iniciada", partida.toString());
+		Assert.assertEquals("Teste1 X Teste2\r\n0 X 0\r\nPartida nao iniciada", partida.toString());
 		
 		partida.iniciarPartida();
 		partida.adicionarPontosCasa(1);

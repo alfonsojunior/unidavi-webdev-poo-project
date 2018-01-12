@@ -1,13 +1,17 @@
 package br.com.alfonso.nba;
-import java.util.Scanner;
+//import java.util.Scanner;
+import java.util.logging.Logger;
 
 public class Main {
 
-	private static Scanner scanner = new Scanner(System.in);
+	//private static Scanner scanner = new Scanner(System.in);
 	private static Temporada temporada = new Temporada();
 	
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+		
+		Logger.getGlobal().info("Teste");
+		
+		/*
 		//Scanner scanner = new Scanner(System.in);
 		System.out.print("Informe a temporada: ");
 		String tmprd = scanner.nextLine();
@@ -15,7 +19,7 @@ public class Main {
 		//Temporada temporada = new Temporada();
 		temporada.setID(tmprd);
 		
-		System.out.print("Informe o nro de times que serão adicionados: ");
+		System.out.print("Informe o nro de times que serï¿½o adicionados: ");
 		String qtdeS = scanner.nextLine();
 		int qtde = Integer.parseInt(qtdeS);
 		
@@ -50,9 +54,10 @@ public class Main {
 		}
 		
 		scanner.close();
+		*/
 	}
 	
-	
+	/*
 	public static String getMenu() {
 		
 		String opcao = "";
@@ -62,7 +67,7 @@ public class Main {
 		System.out.println("3 - Listar times");
 		System.out.println("Q - Sair");
 		System.out.println("##################");
-		System.out.print("Informe uma opção: ");
+		System.out.print("Informe uma opï¿½ï¿½o: ");
 		opcao = scanner.nextLine();
 		
 		return opcao;
@@ -108,9 +113,10 @@ public class Main {
 		System.out.println();
 		System.out.println("########################");
 		System.out.println();
-		System.out.print("Informe a sigla do time que será removido: ");
+		System.out.print("Informe a sigla do time que serï¿½ removido: ");
 		opcao = scanner.nextLine();
 		temporada.removerTimes(opcao);
 	}
-
+	*/
+	
 }

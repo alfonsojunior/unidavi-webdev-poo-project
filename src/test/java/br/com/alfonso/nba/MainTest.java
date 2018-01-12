@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import org.hamcrest.CoreMatchers;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 public class MainTest {
@@ -17,21 +18,12 @@ public class MainTest {
 	}
 
 	@Test
+	//@Ignore
 	public void testMain() {
-		Main.main(new String[] {});
+		Main mn = new Main();
+		mn.main(new String[] {});
 		assertThat(0.0, CoreMatchers.is(0.0));
 	}
 
-	/*
-	@Test
-	public void testGetMenu() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testAdicionarTime() {
-		fail("Not yet implemented");
-	}
-	*/
 
 }

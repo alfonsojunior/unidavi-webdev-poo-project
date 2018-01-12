@@ -135,13 +135,13 @@ public class TemporadaTest {
 		teste = "[2017-2018]\r\n[2017-10-11]\r\n[21:00]\r\n\t[Teste3 X Teste4]\r\n\r\n";
 		Assert.assertEquals(teste, temporada.toString());
 		
-		data = LocalDate.of(2017, Month.OCTOBER, 11);
+		//data = LocalDate.of(2017, Month.OCTOBER, 11);
 		agenda = new Agenda();
-		agenda.setData(data);
+		agenda.setData(2017, 10, 11);
 		
-		hora = LocalTime.of(22, 00);
+		//hora = LocalTime.of(22, 00);
 		horario = new Horario();
-		horario.setHora(hora);
+		horario.setHora(22, 00);
 		
 		partida = new Partida(temporada);		
 		time = new Time();
@@ -246,14 +246,14 @@ public class TemporadaTest {
 		Assert.assertEquals(teste, temporada.toString());
 		
 		partida = new Partida(temporada);
-		time = new Time();
-		time.setSigla("TS3");
-		time.setNome("Teste3");
-		partida.setCasa(time);
-		time = new Time();
-		time.setSigla("TS4");
-		time.setNome("Teste4");
-		partida.setVisitante(time);
+		//time = new Time();
+		//time.setSigla("TS3");
+		//time.setNome("Teste3");
+		partida.setCasa("TS3");
+		//time = new Time();
+		//time.setSigla("TS4");
+		//time.setNome("Teste4");
+		partida.setVisitante("TS4");
 		
 		LocalDate dataAtual = LocalDate.of(2017, Month.OCTOBER, 11);
 		
@@ -268,6 +268,9 @@ public class TemporadaTest {
 		data = LocalDate.of(2017, Month.NOVEMBER, 11);
 		teste = "[2017-11-11]\r\n[22:00]\r\n\t[Teste1 X Teste2]\r\n[21:00]\r\n\t[Teste3 X Teste4]\r\n\r\n";
 		Assert.assertEquals(teste, temporada.listarPartidas(data));
+		
+		Partida partida1 = temporada.buscaPartida(2017, 11, 11, 22, 00, "TS1", "TS2");
+		Assert.assertEquals("Teste1 X Teste2", partida1.getID());
 	}
 
 }

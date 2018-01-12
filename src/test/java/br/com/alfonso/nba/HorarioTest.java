@@ -17,6 +17,15 @@ public class HorarioTest {
 		Horario horario = new Horario();
 		horario.setHora(LocalTime.of(21, 00));
 		Assert.assertEquals("2100", horario.getID());
+		
+		horario.setHora(22, 00);
+		Assert.assertEquals("2200", horario.getID());
+		
+		horario.setHora(23, 00, 00);
+		Assert.assertEquals("2300", horario.getID());
+		
+		horario.setHora(20, 00, 00, 0);
+		Assert.assertEquals("2000", horario.getID());
 	}
 
 	@Test
