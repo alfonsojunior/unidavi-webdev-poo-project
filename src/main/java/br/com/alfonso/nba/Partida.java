@@ -1,5 +1,7 @@
 package br.com.alfonso.nba;
 
+import java.util.Optional;
+
 import br.com.alfonso.IPartida;
 
 public class Partida extends IPartida<Time>  {
@@ -15,9 +17,9 @@ public class Partida extends IPartida<Time>  {
 	public Partida(Temporada temporada) {
 		
 		this.temporada = temporada;
-		setCasa(null);
+		casa = null;
 		this.pontosCasa = 0;
-		setVisitante(null);
+		visitante = null;
 		this.pontosVisitante = 0;
 		this.fim = true;
 		this.vitorioso = 'X';
@@ -89,6 +91,14 @@ public class Partida extends IPartida<Time>  {
 			this.casa = null;
 		}
 	}
+	
+	public void setCasa(String sigla) {
+		if (!sigla.equals("")) {
+			Optional<Time> timeOp = temporada.getTimes().stream().filter(a -> a.getSigla().equals(sigla)).findFirst();
+			Time time = timeOp.get();
+			this.setCasa(time);
+		}
+	}
 
 	public Time getVisitante() {
 		return visitante;
@@ -118,6 +128,14 @@ public class Partida extends IPartida<Time>  {
 			}
 		} else {
 			this.visitante = null;
+		}
+	}
+	
+	public void setVisitante(String sigla) {
+		if (!sigla.equals("")) {
+			Optional<Time> timeOp = temporada.getTimes().stream().filter(a -> a.getSigla().equals(sigla)).findFirst();
+			Time time = timeOp.get();
+			this.setVisitante(time);
 		}
 	}
 	

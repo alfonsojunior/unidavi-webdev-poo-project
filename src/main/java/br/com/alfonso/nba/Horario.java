@@ -4,11 +4,12 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 public class Horario {
 
 	private LocalTime hora = LocalTime.MIN;
-	private ArrayList<Partida> partidas = new ArrayList<Partida>();
+	private List<Partida> partidas = new ArrayList<Partida>();
 	
 	public Horario() {
 		this.partidas = new ArrayList<Partida>();
@@ -22,7 +23,19 @@ public class Horario {
 		this.hora = hora;
 	}
 	
-	public ArrayList<Partida> getPartidas() {
+	public void setHora(int hora, int minuto) {
+		this.hora = LocalTime.of(hora, minuto);
+	}
+	
+	public void setHora(int hora, int minuto, int segundos) {
+		this.hora = LocalTime.of(hora, minuto, segundos);
+	}
+	
+	public void setHora(int hora, int minuto, int segundos, int nanoSegundos) {
+		this.hora = LocalTime.of(hora, minuto, segundos, nanoSegundos);
+	}
+	
+	public List<Partida> getPartidas() {
 		return this.partidas;
 	}
 	

@@ -1,14 +1,16 @@
 package br.com.alfonso.nba;
 
 import java.time.LocalDate;
+import java.time.Month;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 public class Agenda {
 
 	private LocalDate data = LocalDate.MIN;
-	private ArrayList<Horario> horarios = new ArrayList<Horario>();
+	private List<Horario> horarios = new ArrayList<Horario>();
 	
 	public Agenda() {
 	}
@@ -21,7 +23,11 @@ public class Agenda {
 		this.data = data;
 	}
 	
-	public ArrayList<Horario> getHorarios() {
+	public void setData(int ano, int mes, int dia) {
+		this.data = LocalDate.of(ano, Month.of(mes), dia);
+	}
+	
+	public List<Horario> getHorarios() {
 		return this.horarios;
 	}
 	

@@ -23,7 +23,7 @@ public class PartidaTest {
 		partida.setCasa(casa);
 		Assert.assertEquals("Partida inválida", partida.toString());
 		
-		partida.setCasa(null);
+		partida.setCasa("");
 		partida.iniciarPartida();
 		Assert.assertEquals("Partida inválida", partida.toString());
 		
@@ -118,6 +118,31 @@ public class PartidaTest {
 		
 		partida.adicionarPontosVisitante(3);
 		Assert.assertEquals("Teste1 X Teste2\r\n1 X 3\r\nPartida em andamento", partida.toString());
+	}
+	
+	@Test
+	public void testSetCasaWithoutVisitanteNull() {
+		Temporada temporada = new Temporada();
+		temporada.setID("2017-2018");
+		
+		Partida partida = new Partida(temporada);
+		
+		Time visitante = new Time();
+		visitante.setSigla("TS2");
+		visitante.setNome("Teste2");
+		
+		Time casa = new Time();
+		casa.setSigla("TS1");
+		casa.setNome("Teste1");
+		
+		Assert.assertEquals(null, partida.getVisitante());
+		
+		temporada.adicionarTimes(visitante);
+		partida.setVisitante(visitante);
+		temporada.adicionarTimes(casa);
+		partida.setCasa(casa);
+		//Assert.assertEquals("TS1 - Teste1", partida.getCasa().toString());
+		Assert.assertEquals("Teste1 X Teste2", partida.getID());
 	}
 
 	@Test

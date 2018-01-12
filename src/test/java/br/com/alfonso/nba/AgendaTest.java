@@ -20,8 +20,9 @@ public class AgendaTest {
 		temporada.setID("2017-2018");
 		
 		Agenda agenda = new Agenda();
-		LocalDate data = LocalDate.of(2017, Month.DECEMBER, 15);
-		agenda.setData(data);
+		//LocalDate data = LocalDate.of(2017, Month.DECEMBER, 15);
+		//agenda.setData(data);
+		agenda.setData(2017, 12, 15);
 		Assert.assertEquals("20171215", agenda.getID());
 		Assert.assertEquals("2017-12-15", agenda.getData().toString());
 	}

@@ -11,7 +11,7 @@ public class Temporada {
 
 	private String id = "";
 	private List<Time> times = new ArrayList<Time>();
-	private ArrayList<Agenda> agendas = new ArrayList<Agenda>();	
+	private List<Agenda> agendas = new ArrayList<Agenda>();	
 	
 	public Temporada() {
 		this.id = "";
@@ -104,6 +104,31 @@ public class Temporada {
 		Agenda agenda = new Agenda();
 		agenda.setData(data);
 		this.removerAgendas(agenda);
+	}
+	
+	public Partida buscaPartida(int ano, int mes, int dia, int hora, int minuto, String siglaCasa, String siglaVisitante) {
+		LocalDate data = LocalDate.of(ano, mes, dia);
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("YYYYMMdd");
+		Partida partida = null;
+		
+		Agenda agenda = this.agendas.stream()
+					.filter(a -> a.getID().equals(data.format(dtf)))
+					.findFirst()
+					.get();
+		
+		DateTimeFormatter hrf = DateTimeFormatter.ofPattern("HHmm");
+		LocalTime hora1 = LocalTime.of(hora, minuto);
+		Horario horario = agenda.getHorarios().stream()
+			.filter(b -> b.getID().equals(hora1.format(hrf)))
+			.findFirst()
+			.get();
+		
+		partida = horario.getPartidas().stream()
+				.filter(c -> c.getCasa().getSigla().equals(siglaCasa) && c.getVisitante().getSigla().equals(siglaVisitante))
+				.findFirst()
+				.get();
+		
+		return partida;
 	}
 	
 	public void reagendarPartida(Partida partida, LocalDate novaData, LocalTime novaHora) {
