@@ -238,9 +238,11 @@ public class TemporadaTest {
 		time.setNome("Teste2");
 		partida.setVisitante(time);
 		
+		LocalDate dataAtual = LocalDate.of(2017, Month.OCTOBER, 10);
+		
 		data = LocalDate.of(2017, Month.NOVEMBER, 11);
 		hora = LocalTime.of(22, 00);
-		temporada.reagendarPartida(partida, data, hora);
+		temporada.reagendarPartida(dataAtual, partida, data, hora);
 		
 		teste = "[2017-2018]\r\n[2017-10-11]\r\n[21:00]\r\n\t[Teste3 X Teste4]\r\n\r\n[2017-11-11]\r\n[22:00]\r\n\t[Teste1 X Teste2]\r\n\r\n";
 		Assert.assertEquals(teste, temporada.toString());
@@ -255,7 +257,7 @@ public class TemporadaTest {
 		//time.setNome("Teste4");
 		partida.setVisitante("TS4");
 		
-		LocalDate dataAtual = LocalDate.of(2017, Month.OCTOBER, 11);
+		dataAtual = LocalDate.of(2017, Month.OCTOBER, 11);
 		
 		data = LocalDate.of(2017, Month.NOVEMBER, 11);
 		hora = LocalTime.of(21, 00);

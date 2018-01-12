@@ -11,13 +11,16 @@ import java.util.Optional;
 public class Temporada {
 
 	private String id = "";
-	private List<Time> times = new ArrayList<Time>();
-	private List<Agenda> agendas = new ArrayList<Agenda>();	
+	private List<Time> times = new ArrayList<>();
+	private List<Agenda> agendas = new ArrayList<>();	
+	
+	private static String dateFormat = "YYYYMMdd";
+	private static String hourFormat = "HHmm";
 	
 	public Temporada() {
 		this.id = "";
-		this.times = new ArrayList<Time>();
-		this.agendas = new ArrayList<Agenda>();
+		this.times = new ArrayList<>();
+		this.agendas = new ArrayList<>();
 	}
 	
 	public void setID(String id) {
@@ -33,11 +36,9 @@ public class Temporada {
 		if (time != null) {
 			for (Iterator<Time> it = this.times.iterator(); it.hasNext(); ) {
 				Time tm = it.next();
-				if (tm != null) {
-					if (tm.getSigla().equals(time.getSigla())) {
-						achou = true;
-						break;
-					}
+				if (tm != null && tm.getSigla().equals(time.getSigla())) {
+					achou = true;
+					break;
 				}
 			}
 			if (!achou) {
@@ -77,12 +78,10 @@ public class Temporada {
 		if (agenda != null) {
 			for (Iterator<Agenda> it = this.agendas.iterator(); it.hasNext(); ) {
 				Agenda ag = it.next();
-				if (ag != null) {
-					if (ag.getID().equals(agenda.getID())) {
-						achou = true;
-						for (Horario hor : agenda.getHorarios()) {
-							ag.adicionarHorario(hor);
-						}
+				if (ag != null && ag.getID().equals(agenda.getID())) {
+					achou = true;
+					for (Horario hor : agenda.getHorarios()) {
+						ag.adicionarHorario(hor);
 					}
 				}
 			}
@@ -109,7 +108,7 @@ public class Temporada {
 	
 	public Partida buscaPartida(int ano, int mes, int dia, int hora, int minuto, String siglaCasa, String siglaVisitante) {
 		LocalDate data = LocalDate.of(ano, mes, dia);
-		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("YYYYMMdd");
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern(dateFormat);
 		Partida partida = null;
 		
 		Optional<Agenda> agendaOp = this.agendas.stream()
@@ -118,7 +117,7 @@ public class Temporada {
 		if (agendaOp.isPresent()) {
 			Agenda agenda = agendaOp.get();
 		
-			DateTimeFormatter hrf = DateTimeFormatter.ofPattern("HHmm");
+			DateTimeFormatter hrf = DateTimeFormatter.ofPattern(hourFormat);
 			LocalTime hora1 = LocalTime.of(hora, minuto);
 			Optional<Horario> horarioOp = agenda.getHorarios().stream()
 				.filter(b -> b.getID().equals(hora1.format(hrf)))
@@ -138,70 +137,19 @@ public class Temporada {
 		return partida;
 	}
 	
-	public void reagendarPartida(Partida partida, LocalDate novaData, LocalTime novaHora) {
-		boolean achou = false;
-		for (Iterator<Agenda> it = this.agendas.iterator(); it.hasNext(); ) {
-			Agenda agenda = it.next();
-			for (Iterator<Horario> it1 = agenda.getHorarios().iterator(); it.hasNext(); ) {
-				Horario horario = it1.next();
-				for (Iterator<Partida> it2 = horario.getPartidas().iterator(); it.hasNext(); ) {
-					Partida partida1 = it2.next();
-					if (partida.getID().equals(partida1.getID())) {
-						it2.remove();
-						achou = true;
-						break;
-					}
-				}
-				if (achou) {
-					if (horario.getPartidas().size() == 0)
-						it1.remove();
-					break;
-				}
-			}
-			if (achou) {
-				if (agenda.getHorarios().size() == 0)
-					it.remove();
-				break;
-			}
-		}
-		Agenda agenda1 = new Agenda();
-		agenda1.setData(novaData);
-		Horario horario1 = new Horario();
-		horario1.setHora(novaHora);
-		horario1.adicionarPartida(partida);
-		agenda1.adicionarHorario(horario1);
-		this.adicionarAgenda(agenda1);
-	}
-	
 	public void reagendarPartida(LocalDate dataAtual, Partida partida, LocalDate novaData, LocalTime novaHora) {
-		boolean achou = false;
-		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("YYYYMMdd");
-		for (Iterator<Agenda> it = this.agendas.iterator(); it.hasNext(); ) {
-			Agenda agenda = it.next();
-			if (agenda.getID().equals(dataAtual.format(dtf))) {
-				for (Iterator<Horario> it1 = agenda.getHorarios().iterator(); it.hasNext(); ) {
-					Horario horario = it1.next();
-					for (Iterator<Partida> it2 = horario.getPartidas().iterator(); it.hasNext(); ) {
-						Partida partida1 = it2.next();
-						if (partida.getID().equals(partida1.getID())) {
-							it2.remove();
-							achou = true;
-							break;
-						}
-					}
-					if (achou) {
-						if (horario.getPartidas().size() == 0)
-							it1.remove();
-						break;
-					}
-				}
-			}
-			if (achou) {
-				if (agenda.getHorarios().size() == 0)
-					it.remove();
-				break;
-			}
-		}
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern(dateFormat);
+		
+		this.agendas.stream()
+					.filter( a -> a.getID().equals(dataAtual.format(dtf)))
+					.forEach( agenda -> {
+						agenda.getHorarios().stream().forEach( 
+									horario -> horario.getPartidas().removeIf((Partida partida1) -> partida1.getID().equals(partida.getID()))
+								);
+						agenda.getHorarios().removeIf((Horario horario) -> horario.getPartidas().isEmpty());
+					});
+		this.agendas.removeIf((Agenda agenda) -> agenda.getHorarios().isEmpty());
+		
 		Agenda agenda1 = new Agenda();
 		agenda1.setData(novaData);
 		Horario horario1 = new Horario();
@@ -212,26 +160,26 @@ public class Temporada {
 	}
 	
 	public String listarPartidas(LocalDate data) {
-		String retorno = "";
-		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("YYYYMMdd");
+		StringBuilder retorno = new StringBuilder();
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern(dateFormat);
 		for (Agenda agenda : this.agendas) {
 			if (agenda.getID().equals(data.format(dtf))) {
-				retorno += agenda.toString() + "\r\n";
+				retorno.append(agenda.toString() + "\r\n");
 			}
 		}
 		
-		return retorno;
+		return retorno.toString();
 	}
 	
 	@Override
 	public String toString() {
-		String retorno = "";
+		StringBuilder retorno = new StringBuilder();
 		
-		retorno = "[" + this.id.trim() + "]\r\n";
+		retorno.append("[" + this.id.trim() + "]\r\n");
 		for (Agenda agenda : this.agendas) {
-			retorno += agenda.toString() + "\r\n";
+			retorno.append(agenda.toString() + "\r\n");
 		}
 		
-		return retorno;
+		return retorno.toString();
 	}
 }

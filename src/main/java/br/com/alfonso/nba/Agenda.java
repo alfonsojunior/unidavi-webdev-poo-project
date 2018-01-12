@@ -10,10 +10,7 @@ import java.util.List;
 public class Agenda {
 
 	private LocalDate data = LocalDate.MIN;
-	private List<Horario> horarios = new ArrayList<Horario>();
-	
-	public Agenda() {
-	}
+	private List<Horario> horarios = new ArrayList<>();
 
 	public LocalDate getData() {
 		return data;
@@ -35,14 +32,12 @@ public class Agenda {
 		boolean achou = false;
 		for (Iterator<Horario> it = this.horarios.iterator(); it.hasNext(); ) {
 			Horario hor = it.next();
-			if (horario != null && hor != null) {
-				if (horario.getHora() != null && hor.getHora() != null) {
-					if (hor.getHora().compareTo(horario.getHora()) == 0) {
-						achou = true;
-						for (Partida part : horario.getPartidas()) {
-							hor.adicionarPartida(part);
-						}
-					}
+			if (horario != null 
+					&& Horario.isSetted(horario) 
+					&& hor.getHora().compareTo(horario.getHora()) == 0) {
+				achou = true;
+				for (Partida part : horario.getPartidas()) {
+					hor.adicionarPartida(part);
 				}
 			}
 		}
@@ -68,16 +63,15 @@ public class Agenda {
 	@Override
 	public String toString() {
 		
-		String retorno = "";
+		StringBuilder retorno = new StringBuilder();
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("YYYY-MM-dd");
-		retorno = "[" +this.data.format(dtf) + "]\r\n";
-		//for (Horario horario : this.horarios) {
+		retorno.append("[" +this.data.format(dtf) + "]\r\n");
 		for (Iterator<Horario> it = this.horarios.iterator(); it.hasNext(); ) {
 			Horario horario = it.next();
-			retorno += horario.toString();
+			retorno.append(horario.toString());
 		}
 		
-		return retorno;
+		return retorno.toString();
 	}
 	
 }

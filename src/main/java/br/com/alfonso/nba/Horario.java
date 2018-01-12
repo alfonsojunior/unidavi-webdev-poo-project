@@ -9,10 +9,10 @@ import java.util.List;
 public class Horario {
 
 	private LocalTime hora = LocalTime.MIN;
-	private List<Partida> partidas = new ArrayList<Partida>();
+	private List<Partida> partidas = new ArrayList<>();
 	
 	public Horario() {
-		this.partidas = new ArrayList<Partida>();
+		this.partidas = new ArrayList<>();
 	}
 
 	public LocalTime getHora() {
@@ -35,22 +35,26 @@ public class Horario {
 		this.hora = LocalTime.of(hora, minuto, segundos, nanoSegundos);
 	}
 	
+	public static boolean isSetted(Horario horario) {
+		return horario.getHora() != null;
+	}
+	
 	public List<Partida> getPartidas() {
 		return this.partidas;
 	}
 	
 	public String listaPartidas() {
 		
-		String retorno = "";
+		StringBuilder retorno = new StringBuilder();
 		
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm");
-		retorno = "[" +this.hora.format(dtf) + "]\r\n";
+		retorno.append("[" +this.hora.format(dtf) + "]\r\n");
 		for (Iterator<Partida> it = this.partidas.iterator(); it.hasNext(); ) {
 			Partida partida = it.next();
-			retorno += "\t[" +partida.getID() + "]\r\n";
+			retorno.append("\t[" +partida.getID() + "]\r\n");
 		}
 		
-		return retorno;
+		return retorno.toString();
 		
 	}
 	

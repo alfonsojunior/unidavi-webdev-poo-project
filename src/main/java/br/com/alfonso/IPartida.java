@@ -1,6 +1,6 @@
 package br.com.alfonso;
 
-public abstract class IPartida<T> {
+public interface IPartida<T> {
 
 	public abstract void iniciarPartida();
 	public abstract void setCasa(T casa);

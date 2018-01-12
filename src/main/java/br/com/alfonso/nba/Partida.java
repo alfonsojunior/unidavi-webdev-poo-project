@@ -4,7 +4,7 @@ import java.util.Optional;
 
 import br.com.alfonso.IPartida;
 
-public class Partida extends IPartida<Time>  {
+public class Partida implements IPartida<Time>  {
 	
 	private Temporada temporada = new Temporada();
 	private Time casa = null;
@@ -37,10 +37,8 @@ public class Partida extends IPartida<Time>  {
 	
 	@Override
 	public void adicionarPontosCasa(int pontos) {
-		if (!this.fim) {
-			if (pontos > 0 && pontos <= 3) {
-				this.pontosCasa += pontos;
-			}
+		if (!this.fim && pontos > 0 && pontos <= 3) {
+			this.pontosCasa += pontos;
 		}
 	}
 	
@@ -50,10 +48,8 @@ public class Partida extends IPartida<Time>  {
 	
 	@Override
 	public void adicionarPontosVisitante(int pontos) {
-		if (!this.fim) {
-			if (pontos > 0 && pontos <= 3) {
-				this.pontosVisitante += pontos;
-			}
+		if (!this.fim && pontos > 0 && pontos <= 3) {
+			this.pontosVisitante += pontos;
 		}
 	}
 	
@@ -168,10 +164,17 @@ public class Partida extends IPartida<Time>  {
 		if (this.casa == null || this.visitante == null) {
 			return "Partida invalida";
 		} else {
+			String status = "";
+			if (this.fim && this.vitorioso != 'X' ) {
+				status = "Partida finalizada";
+			} else if (this.fim && this.vitorioso == 'X') {
+				status = "Partida nao iniciada";
+			} else {
+				status = "Partida em andamento";
+			}
 			return this.casa.getNome() + " X " + this.visitante.getNome() + "\r\n" 
 					+ this.getPontosCasa() + " X " + this.getPontosVisitante() + "\r\n"
-					+ (this.fim && this.vitorioso != 'X' ? "Partida finalizada" : 
-						this.fim && this.vitorioso == 'X'? "Partida nao iniciada" : "Partida em andamento");
+					+ status;
 		}
 	}
 	
