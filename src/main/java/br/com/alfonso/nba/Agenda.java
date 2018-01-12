@@ -47,12 +47,9 @@ public class Agenda {
 	}
 	
 	public void removerHorario(Horario horario) {
-		for (Iterator<Horario> it = this.horarios.iterator(); it.hasNext(); ) {
-			Horario part = it.next();
-			if (part.getID().equals(horario.getID())) {
-				it.remove();
-			}
-		}
+		
+		this.horarios.removeIf((Horario part) -> part.getID().equals(horario.getID()));
+
 	}
 	
 	public String getID() {

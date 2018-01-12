@@ -32,16 +32,10 @@ public class Temporada {
 	}
 	
 	public void adicionarTimes(Time time) {
-		boolean achou = false;
 		if (time != null) {
-			for (Iterator<Time> it = this.times.iterator(); it.hasNext(); ) {
-				Time tm = it.next();
-				if (tm != null && tm.getSigla().equals(time.getSigla())) {
-					achou = true;
-					break;
-				}
-			}
-			if (!achou) {
+			
+			Optional<Time> timeOp = this.getTimes().stream().filter(a -> a.getSigla().equals(time.getSigla())).findFirst();
+			if (!timeOp.isPresent()) {
 				this.times.add(time);
 			}
 		}
@@ -55,12 +49,9 @@ public class Temporada {
 	}
 	
 	public void removerTimes(Time time) {
-		for (Iterator<Time> it = this.times.iterator(); it.hasNext(); ) {
-			Time tm = it.next();
-			if (tm.getSigla().equals(time.getSigla())) {
-				it.remove();
-			}
-		}
+		
+		this.times.removeIf((Time tm) -> tm.getSigla().equals(time.getSigla()));
+		
 	}
 	
 	public void removerTimes(String sigla) {
@@ -92,12 +83,9 @@ public class Temporada {
 	}
 	
 	public void removerAgendas(Agenda agenda) {
-		for (Iterator<Agenda> it = this.agendas.iterator(); it.hasNext(); ) {
-			Agenda ag = it.next();
-			if (ag.getID().equals(agenda.getID())) {
-				it.remove();
-			}
-		}
+		
+		this.agendas.removeIf((Agenda ag) -> ag.getID().equals(agenda.getID()));
+
 	}
 	
 	public void removerAgendas(LocalDate data) {
