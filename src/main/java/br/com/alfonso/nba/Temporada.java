@@ -6,6 +6,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 
 public class Temporada {
 
@@ -111,22 +112,28 @@ public class Temporada {
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("YYYYMMdd");
 		Partida partida = null;
 		
-		Agenda agenda = this.agendas.stream()
+		Optional<Agenda> agendaOp = this.agendas.stream()
 					.filter(a -> a.getID().equals(data.format(dtf)))
-					.findFirst()
-					.get();
+					.findFirst();
+		if (agendaOp.isPresent()) {
+			Agenda agenda = agendaOp.get();
 		
-		DateTimeFormatter hrf = DateTimeFormatter.ofPattern("HHmm");
-		LocalTime hora1 = LocalTime.of(hora, minuto);
-		Horario horario = agenda.getHorarios().stream()
-			.filter(b -> b.getID().equals(hora1.format(hrf)))
-			.findFirst()
-			.get();
-		
-		partida = horario.getPartidas().stream()
-				.filter(c -> c.getCasa().getSigla().equals(siglaCasa) && c.getVisitante().getSigla().equals(siglaVisitante))
-				.findFirst()
-				.get();
+			DateTimeFormatter hrf = DateTimeFormatter.ofPattern("HHmm");
+			LocalTime hora1 = LocalTime.of(hora, minuto);
+			Optional<Horario> horarioOp = agenda.getHorarios().stream()
+				.filter(b -> b.getID().equals(hora1.format(hrf)))
+				.findFirst();
+			if (horarioOp.isPresent()) {
+				Horario horario = horarioOp.get();
+			
+				Optional<Partida> partidaOp = horario.getPartidas().stream()
+						.filter(c -> c.getCasa().getSigla().equals(siglaCasa) && c.getVisitante().getSigla().equals(siglaVisitante))
+						.findFirst();
+				if (partidaOp.isPresent()) {
+					partida = partidaOp.get();
+				}
+			}
+		}
 		
 		return partida;
 	}

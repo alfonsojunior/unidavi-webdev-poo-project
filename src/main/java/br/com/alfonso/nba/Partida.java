@@ -95,8 +95,10 @@ public class Partida extends IPartida<Time>  {
 	public void setCasa(String sigla) {
 		if (!sigla.equals("")) {
 			Optional<Time> timeOp = temporada.getTimes().stream().filter(a -> a.getSigla().equals(sigla)).findFirst();
-			Time time = timeOp.get();
-			this.setCasa(time);
+			if (timeOp.isPresent()) {
+				Time time = timeOp.get();
+				this.setCasa(time);
+			}
 		}
 	}
 
@@ -134,8 +136,10 @@ public class Partida extends IPartida<Time>  {
 	public void setVisitante(String sigla) {
 		if (!sigla.equals("")) {
 			Optional<Time> timeOp = temporada.getTimes().stream().filter(a -> a.getSigla().equals(sigla)).findFirst();
-			Time time = timeOp.get();
-			this.setVisitante(time);
+			if (timeOp.isPresent()) {
+				Time time = timeOp.get();
+				this.setVisitante(time);
+			}
 		}
 	}
 	

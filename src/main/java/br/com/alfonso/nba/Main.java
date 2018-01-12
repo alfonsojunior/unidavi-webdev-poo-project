@@ -10,6 +10,8 @@ public class Main {
 	public static void main(String[] args) {
 		
 		Logger.getGlobal().info("Teste");
+		temporada = new Temporada();
+		temporada.setID("2017-2018");
 		
 		/*
 		//Scanner scanner = new Scanner(System.in);
@@ -19,7 +21,7 @@ public class Main {
 		//Temporada temporada = new Temporada();
 		temporada.setID(tmprd);
 		
-		System.out.print("Informe o nro de times que ser�o adicionados: ");
+		System.out.print("Informe o nro de times que serao adicionados: ");
 		String qtdeS = scanner.nextLine();
 		int qtde = Integer.parseInt(qtdeS);
 		
@@ -67,7 +69,7 @@ public class Main {
 		System.out.println("3 - Listar times");
 		System.out.println("Q - Sair");
 		System.out.println("##################");
-		System.out.print("Informe uma op��o: ");
+		System.out.print("Informe uma opcao: ");
 		opcao = scanner.nextLine();
 		
 		return opcao;
@@ -113,7 +115,7 @@ public class Main {
 		System.out.println();
 		System.out.println("########################");
 		System.out.println();
-		System.out.print("Informe a sigla do time que ser� removido: ");
+		System.out.print("Informe a sigla do time que sera removido: ");
 		opcao = scanner.nextLine();
 		temporada.removerTimes(opcao);
 	}
